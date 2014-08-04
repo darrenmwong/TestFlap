@@ -26,6 +26,13 @@ public class Main implements Runnable{
 		} catch (LWJGLException e) {
 			e.printStackTrace();
 		}
+		
+		while (running) {
+			Display.update();
+			if (Display.isCloseRequested()) running = false;
+		}
+		Display.destroy();
+		
 	}
 	
 	public static void main(String[] args) {
