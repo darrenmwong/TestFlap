@@ -1,7 +1,10 @@
 package game.flappy;
 
 import org.lwjgl.LWJGLException;
+import org.lwjgl.opengl.ContextAttribs;
 import org.lwjgl.opengl.Display;
+import org.lwjgl.opengl.DisplayMode;
+import org.lwjgl.opengl.PixelFormat;
 
 public class Main implements Runnable{
 	
@@ -15,14 +18,16 @@ public class Main implements Runnable{
 	public void start() {
 		running = true;
 		thread = new Thread(this, "Display");
-		tread.start();
+		thread.start();
 	}
 	
 	public void run() {
 		try {
 			Display.setDisplayMode(new DisplayMode(width, height));
 			Display.setTitle(title);
-			Display.create();
+			ContextAttribs context =  new ContextAttribs(3, 3);
+			if (System.getProperty("os.name").contains("Mac")) context = new ContextAttribs(3, 2);
+			Display.create(new PixelFormat(), context.withProfileCore(true));
 		} catch (LWJGLException e) {
 			e.printStackTrace();
 		}
@@ -36,7 +41,7 @@ public class Main implements Runnable{
 	}
 	
 	public static void main(String[] args) {
-		
+		new Main().start();
 	}
 
 }
