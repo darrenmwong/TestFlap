@@ -4,6 +4,7 @@ import org.lwjgl.LWJGLException;
 import org.lwjgl.opengl.ContextAttribs;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
+import static org.lwjgl.opengl.GL11.*;
 import org.lwjgl.opengl.PixelFormat;
 
 public class Main implements Runnable{
@@ -21,6 +22,10 @@ public class Main implements Runnable{
 		thread.start();
 	}
 	
+	private void init() {
+		String version = GL11.g1GetString(GL11.GL_VERSION);
+	}
+	
 	public void run() {
 		try {
 			Display.setDisplayMode(new DisplayMode(width, height));
@@ -31,6 +36,8 @@ public class Main implements Runnable{
 		} catch (LWJGLException e) {
 			e.printStackTrace();
 		}
+		
+		init();
 		
 		while (running) {
 			Display.update();
